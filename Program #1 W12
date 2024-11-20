@@ -1,0 +1,42 @@
+#program #1 Mile Per Gallon calculator
+# The program's window should have:
+#   Entry widgets that let the user enter the number of gallons of gas the car holds
+#   the number of miles it can be driven on a full tank.
+#   Calculate MPG button
+# MPG = miles / gallons
+import tkinter
+import tkinter.messagebox
+
+class MPG:
+    def __init__(self):
+        self.window = tkinter.Tk()
+        self.window.title('MPG')
+
+        self.top_frame = tkinter.Frame(self.window)
+        self.bottom_frame = tkinter.Frame(self.window)
+
+        self.gallons_label = tkinter.Label(self.top_frame, text='gallons the car can hold:')
+        self.miles_label = tkinter.Label(self.top_frame, text='Miles driven at full tank:')
+        
+        self.miles_enter = tkinter.Entry(self.top_frame, width=10)
+        self.gallons_enter = tkinter.Entry(self.top_frame, width=10)
+
+        self.calc_mpg = tkinter.Button(self.bottom_frame, text='Calculate', command=self.calculate)
+        self.quit = tkinter.Button(self.bottom_frame, text='Quit', command=self.window.destroy)
+
+        self.calc_mpg.pack(side='left')
+        self.quit.pack(side='left')
+
+        self.top_frame.pack()
+        self.bottom_frame.pack()
+
+        tkinter.mainloop()
+        
+    def calculate(self):
+        gallons = float(self.gallons_enter.get())
+        miles = float(self.miles_enter.get())
+        mpg = miles / gallons
+        tkinter.messagebox.showinfo('Miles Per Gallon', 'your cars mile per gallon is' + mpg + "mpg")
+
+if __name__ == '__main__':
+    miles_per_gallon = MPG
