@@ -1,0 +1,72 @@
+# Program #3 Long-Distance Calls
+# create a GUI that allows the user to select a rate category
+# have the user enter how many minutes for the call in a 'Entry widget'
+# When done a 'Info dialog box should display the charge.
+#   Rate Category	                            Rate per Minute
+#   Daytime (6:00 A.M. through 5:59 P.M.) 	    $0.02
+#   Evening (6:00 P.M.  through 11:59 P.M.) 	$0.12
+#   Off-Peak (midnight through 5:59 P.M.) 	    $0.05
+import tkinter
+import tkinter.messagebox
+
+class LDC:
+    def __init__(self):
+        self.window = tkinter.Tk()
+        self.window.title('Calling service')
+
+        self.top_frame = tkinter.Frame(self.window)
+        self.bottom_frame = tkinter.Frame(self.window)
+
+        self.Rate = tkinter.IntVar()
+        self.Rate.set(0)
+
+        self.day = tkinter.Radiobutton(self.top_frame, text='day', variable=self.Rate, value= 0.02)
+        self.evening = tkinter.Radiobutton(self.top_frame, text='Evening', variable=self.Rate, value= 0.12)    
+        self.off_peak = tkinter.Radiobutton(self.top_frame, text='Off-Peak', variable=self.Rate, value= 0.05)
+
+        self.Done = tkinter.Button(self.bottom_frame, text='Next', command=self.display)
+        self.quit = tkinter.Button(self.bottom_frame, text= "Quit", command= self.window.destroy)
+
+        self.day.pack()
+        self.evening.pack()
+        self.off_peak.pack()
+        self.Done.pack(side='left')
+        self.quit.pack(side='left')
+        self.top_frame.pack()
+        self.bottom_frame.pack()
+
+        tkinter.mainloop()
+
+    def display(self):
+        self.second_window = tkinter.Tk()
+        self.second_window.title('Time')
+
+        self.Top_frame = tkinter.Frame(self.second_window)
+        self.Bottom_frame = tkinter.Frame(self.second_window)
+
+        self.minutes_label = tkinter.Label(self.Top_frame, text='Amount of time(minutes):')
+        
+        self.minutes_enter = tkinter.Entry(self.Top_frame, width=10)
+        
+        self.done = tkinter.Button(self.Bottom_frame, text='Calculate', command=self.calc)
+        self.quit = tkinter.Button(self.Bottom_frame, text= "Quit", command= self.second_window.destroy) 
+
+        self.minutes_label.pack(side='left')
+        self.minutes_enter.pack(side='left')
+        self.done.pack(side='left')
+        self.quit.pack(side='left')
+        self.Top_frame.pack()
+        self.Bottom_frame.pack()
+
+        tkinter.mainloop()
+              
+    def calc(self):
+        minutes = float(self.minutes_enter.get())
+        rate = float(self.Rate.get())
+
+        self.total = minutes * rate
+
+        tkinter.messagebox.showinfo('Total', 'your total is: $' + str(self.total))        
+
+if __name__ == '__main__':
+    calls = LDC()
