@@ -18,11 +18,11 @@ class LDC:
         self.bottom_frame = tkinter.Frame(self.window)
 
         self.Rate = tkinter.IntVar()
-        self.Rate.set(0)
+        self.Rate.set(float(0.00))
 
-        self.day = tkinter.Radiobutton(self.top_frame, text='day', variable=self.Rate, value= 0.02)
-        self.evening = tkinter.Radiobutton(self.top_frame, text='Evening', variable=self.Rate, value= 0.12)    
-        self.off_peak = tkinter.Radiobutton(self.top_frame, text='Off-Peak', variable=self.Rate, value= 0.05)
+        self.day = tkinter.Radiobutton(self.top_frame, text='day', variable=self.Rate, value= float(1))
+        self.evening = tkinter.Radiobutton(self.top_frame, text='Evening', variable=self.Rate, value= float(2))    
+        self.off_peak = tkinter.Radiobutton(self.top_frame, text='Off-Peak', variable=self.Rate, value= float(3))
 
         self.Done = tkinter.Button(self.bottom_frame, text='Next', command=self.display)
         self.quit = tkinter.Button(self.bottom_frame, text= "Quit", command= self.window.destroy)
@@ -63,8 +63,14 @@ class LDC:
     def calc(self):
         minutes = float(self.minutes_enter.get())
         rate = float(self.Rate.get())
+        if rate == 1:
+            Rate = float(0.02)
+        if rate == 2:
+            Rate = float(0.12)
+        if rate == 3:
+            Rate = float(0.05)
 
-        self.total = minutes * rate
+        self.total = minutes * Rate
 
         tkinter.messagebox.showinfo('Total', 'your total is: $' + str(self.total))        
 
